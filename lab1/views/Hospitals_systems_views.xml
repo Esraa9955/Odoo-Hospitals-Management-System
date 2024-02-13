@@ -1,0 +1,105 @@
+
+
+<odoo>
+    <data>
+        <record id='hospital_action' model='ir.actions.act_window'>
+            <field name='name'>Patients</field>
+            <field name="res_model">hms.patient</field>
+        </record>
+
+        <record id='HMS_patient_form_view' model='ir.ui.view'>
+            <field name='name'>Patients Form View</field>
+            <field name='model'>hms.patient</field>
+            <field name='arch' type='xml'>
+                <form>
+                    <header>
+                        <field name='state' widget='statusbar' nolabel='1' options="{'clickable':'1'}" />
+                        <button name='change_state' string='Change_level' type='object'/>
+                    </header>
+                    <sheet>
+                        <group string='personal Information'>
+                            <field name='first_name'/>
+                            <field name='last_name'/>
+                            <field name='age'/>
+                            <field name='graduate_age'/>
+                            <field name='address'/>
+                            <field name='birth_date'/>
+                            <field name='email'/>
+                        </group>
+                        
+                        <notebook>
+                            <page string='medical Information' name='extra_informations'>
+                                <group>
+                                    <field name='blood_type'/>
+                                    <field name='image'/>
+                                </group>
+                            </page>
+                            <page string='Extra Infromation' name='extra_informations'>
+                                <group>
+                                    <field name='pcr'/>
+                                    <field name='CR_ratio' attrs="{'required' : [('pcr', '=' , True)]}"/>
+                                    <field name='history' attrs="{'invisible' : [('age', '&lt;=', 50)]}"/>
+                                    
+                                </group>
+                            </page>
+                            <page string='Department Infromation' name='extra_informations'>
+                                <group>
+                                    <field name='department_id' domain="[('is_opened','=',True)]"/>
+                                </group>
+                            </page>
+                            <page string='Doctors Infromation' name='doctors_informations' groups='lab1.manages_group2'>
+                                <group>
+                                    <field name='doctors_ids' attrs="{'invisible' : [('department_id', '=', False)]}"/>
+                                </group>
+                            </page>
+                            <page string='Department Capacity' name='extra_informations'>
+                                <group>
+                                    <field name='department_capacity'/>
+                                </group>
+                            </page>
+                            <page string='State Log' name='state_log'>
+                                <group>
+                                    <field name='log_history' widget='one2many_list'>
+                                        <tree>
+                                            <field name='create_uid'/>
+                                            <field name='create_date'/>
+                                            <field name='description'/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+
+            </field>
+        </record>
+
+         
+        <record id='HMS_patient_tree_view' model='ir.ui.view'>
+            <field name='name'>Patients Tree View</field>
+            <field name='model'>hms.patient</field>
+            <field name='arch' type='xml'>
+                <tree>
+                    <field name='first_name'/>
+                    <field name='last_name'/>
+                    <field name='age'/>
+                    <field name='address'/>
+                    <field name='birth_date'/>
+                    <field name='blood_type'/>
+                    <field name='image'/>
+                    <field name='pcr'/>
+                    <field name='CR_ratio'/>
+                    <field name='history'/>
+                    <field name='department_id'/>
+                </tree>
+            </field>
+        </record>
+
+         
+
+        <menuitem name='HMS' id='HMS_main_menu'/>
+        <menuitem name='Patients' id='patient_menu' parent='HMS_main_menu' action='hospital_action'/>
+    </data>
+</odoo>

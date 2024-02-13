@@ -1,0 +1,58 @@
+<odoo>
+  <data>
+    <record id='doctors_action' model='ir.actions.act_window'>
+      <field name='name'>Doctors</field>
+      <field name='res_model'>hms.doctors</field>
+    </record>
+    <record id='HMS_doctors_form_view' model='ir.ui.view'>  
+            <field name='name'>Doctors Form View</field>
+            <field name='model'>hms.doctors</field>
+            <field name='arch' type='xml'>
+                <form>
+                    <sheet>
+                        <group string='personal Information'>
+                          <field name='first_name'/>
+                          <field name='last_name'/>
+                          <field name='image'/>   
+                        </group>
+                        <group string ='Patient Informatin'>
+                          <field name='patients_ids'>
+                            <tree>
+                              <field name='first_name'/>
+                              <field name='last_name'/>
+                              <field name='age'/>
+
+                            </tree>
+                          </field>
+                        </group>
+                        
+                      
+                    </sheet>
+
+                </form>
+
+            </field>
+        </record>
+
+         
+        <record id='HMS_patient_tree_view' model='ir.ui.view'>
+            <field name='name'>Patients Tree View</field>
+            <field name='model'>hms.patient</field>
+            <field name='arch' type='xml'>
+                <tree>
+                    <field name='first_name'/>
+                    <field name='last_name'/>
+                    <field name='age'/>
+                    <field name='address'/>
+                    <field name='birth_date'/>
+                    <field name='blood_type'/>
+                    <field name='image'/>
+                    <field name='pcr'/>
+                    <field name='CR_ratio'/>
+                    <field name='history'/>
+                    <field name='department_id'/>
+                </tree>
+            </field>
+        </record>
+    <menuitem name='Doctors' id='doctors_menu' parent='HMS_main_menu' action='doctors_action' groups='lab1.manages_group2'/>  </data>
+</odoo>
